@@ -2,7 +2,7 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	27.3
+Version:	27.4
 Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
@@ -15,14 +15,19 @@ URL:		https://github.com/rpm-software-management/mock/
 # tito build --tgz
 Source:		https://github.com/rpm-software-management/mock/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.gz
 BuildArch:	noarch
+
+# distribution-gpg-keys contains GPG keys used by mock configs
+Requires:	distribution-gpg-keys >= 1.15
+
 Requires(pre):	shadow-utils
 Requires(post): coreutils
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?mageia}
 # to detect correct default.cfg
 Requires(post):	python3-dnf
 Requires(post):	python3-hawkey
 Requires(post):	system-release
 Requires(post):	python3
+Requires(post):	sed
 %endif
 %if 0%{?rhel}
 # to detect correct default.cfg
@@ -74,25 +79,34 @@ if [ -s /etc/os-release ]; then
     # fedora and rhel7
     if grep -Fiq Rawhide /etc/os-release; then
         ver=rawhide
+    # mageia
+    elif [ -s /etc/mageia-release ]; then
+        if grep -Fiq Cauldron /etc/mageia-release; then
+           ver=cauldron
+        fi
     else
         ver=$(source /etc/os-release && echo $VERSION_ID | cut -d. -f1 | grep -o '[0-9]\+')
     fi
 else
     # something obsure, use buildtime version
-    ver=%{?rhel}%{?fedora}
+    ver=%{?rhel}%{?fedora}%{?mageia}
 fi
-%if 0%{?fedora}
-mock_arch=$(python3 -c "import dnf.rpm; import hawkey; print(dnf.rpm.basearch(hawkey.detect_arch()))")
+%if 0%{?fedora} || 0%{?mageia}
+if [ -s /etc/mageia-release ]; then
+    mock_arch=$(sed -n '/^$/!{$ s/.* \(\w*\)$/\1/p}' /etc/mageia-release)
+else
+    mock_arch=$(python3 -c "import dnf.rpm; import hawkey; print(dnf.rpm.basearch(hawkey.detect_arch()))")
+fi
 %else
 mock_arch=$(python -c "import rpmUtils.arch; baseArch = rpmUtils.arch.getBaseArch(); print baseArch")
 %endif
-cfg=%{?fedora:fedora}%{?rhel:epel}-$ver-${mock_arch}.cfg
+cfg=%{?fedora:fedora}%{?rhel:epel}%{?mageia:mageia}-$ver-${mock_arch}.cfg
 if [ -e %{_sysconfdir}/mock/$cfg ]; then
     if [ "$(readlink %{_sysconfdir}/mock/default.cfg)" != "$cfg" ]; then
         ln -s $cfg %{_sysconfdir}/mock/default.cfg 2>/dev/null || ln -s -f $cfg %{_sysconfdir}/mock/default.cfg.rpmnew
     fi
 else
-    echo "Warning: file %{_sysconfdir}/mock/$cfg does not exists."
+    echo "Warning: file %{_sysconfdir}/mock/$cfg does not exist."
     echo "         unable to update %{_sysconfdir}/mock/default.cfg"
 fi
 :
@@ -105,6 +119,11 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Oct 09 2017 Miroslav Suchý <msuchy@redhat.com> 27.4-1
+- Fix mock & mock-core-config specs to support Mageia (ngompa13@gmail.com)
+- Ensure mock-core-configs will select the right default on Mageia
+  (ngompa13@gmail.com)
+
 * Wed Sep 27 2017 Miroslav Suchý <msuchy@redhat.com> 27.3-1
 - use primary key for F-27+ on s390x (dan@danny.cz)
 
