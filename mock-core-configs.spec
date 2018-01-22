@@ -3,7 +3,7 @@
 
 Name:		mock-core-configs
 Version:	28.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -29,7 +29,7 @@ Requires(post):	system-release
 Requires(post):	python3
 Requires(post):	sed
 %endif
-%if 0%{?rhel} <= 7
+%if 0%{?rhel} && 0%{?rhel} <= 7
 # to detect correct default.cfg
 Requires(post):	python
 Requires(post):	yum
@@ -119,6 +119,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Jan 22 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 28.1-2
+- Fix wrong RHEL condition
+
 * Mon Jan 22 2018 Miroslav Suchý <msuchy@redhat.com> 28.1-1
 - bump up version to 28.1
 
