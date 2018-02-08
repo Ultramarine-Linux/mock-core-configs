@@ -3,7 +3,7 @@
 
 Name:		mock-core-configs
 Version:	28.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -119,6 +119,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 28.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Mon Jan 22 2018 Miroslav Suchý <msuchy@redhat.com> 28.2-1
 - fix wrong RHEL condition
 
