@@ -2,8 +2,8 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	28.2
-Release:	2%{?dist}
+Version:	28.3
+Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -119,8 +119,10 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 28.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+* Thu Mar 01 2018 Miroslav Suchý <msuchy@redhat.com> 28.3-1
+- bump up releasever in rawhide configs
+- add CentOS SCL repositories to EPEL 6 & 7 (x86_64)
+  (tmz@pobox.com)
 
 * Mon Jan 22 2018 Miroslav Suchý <msuchy@redhat.com> 28.2-1
 - fix wrong RHEL condition
