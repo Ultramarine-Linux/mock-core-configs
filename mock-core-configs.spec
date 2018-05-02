@@ -2,7 +2,7 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	28.3
+Version:	28.4
 Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
@@ -17,7 +17,7 @@ Source:		https://github.com/rpm-software-management/mock/releases/download/%{nam
 BuildArch:	noarch
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:	distribution-gpg-keys >= 1.15
+Requires:	distribution-gpg-keys >= 1.21
 
 Requires(pre):	shadow-utils
 Requires(post): coreutils
@@ -53,7 +53,7 @@ Config files which allow you to create chroots for:
 
 %install
 mkdir -p %{buildroot}%{_sysconfdir}/mock
-install -pm 0644 etc/mock/*.cfg %{buildroot}%{_sysconfdir}/mock
+cp -a etc/mock/*.cfg %{buildroot}%{_sysconfdir}/mock
 
 # generate files section with config - there is many of them
 echo "%defattr(0644, root, mock)" > %{name}.cfgs
@@ -119,6 +119,15 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Wed May 02 2018 Miroslav Suchý <msuchy@redhat.com> 28.4-1
+- requires distribution-gpg-keys with opensuse keys
+- Add initial openSUSE distribution targets (ngompa13@gmail.com)
+- provide fedora-29 configs as symlinks to fedora-rawhide
+- use cp instead of install to preserve symlinks
+- use correct url for local repos for s390x for F27+ [RHBZ#1553678]
+- add CentOS SCL repositories to EPEL 7 (aarch64 & ppc64le)
+  (tmz@pobox.com)
+
 * Thu Mar 01 2018 Miroslav Suchý <msuchy@redhat.com> 28.3-1
 - bump up releasever in rawhide configs
 - add CentOS SCL repositories to EPEL 6 & 7 (x86_64)
