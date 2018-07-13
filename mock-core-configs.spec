@@ -3,7 +3,7 @@
 
 Name:		mock-core-configs
 Version:	28.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -118,6 +118,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 28.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed May 02 2018 Miroslav Suchý <msuchy@redhat.com> 28.4-1
 - requires distribution-gpg-keys with opensuse keys
 - Add initial openSUSE distribution targets (ngompa13@gmail.com)
