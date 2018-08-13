@@ -2,8 +2,8 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	28.4
-Release:	2%{?dist}
+Version:	29.1
+Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -17,7 +17,7 @@ Source:		https://github.com/rpm-software-management/mock/releases/download/%{nam
 BuildArch:	noarch
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:	distribution-gpg-keys >= 1.21
+Requires:	distribution-gpg-keys >= 1.22
 
 Requires(pre):	shadow-utils
 Requires(post): coreutils
@@ -42,6 +42,7 @@ Config files which allow you to create chroots for:
  * Epel
  * Mageia
  * Custom chroot
+ * OpenSuse Tumbleweed and Leap
 
 %prep
 %setup -q
@@ -118,8 +119,11 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 28.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+* Mon Aug 13 2018 Miroslav Suchý <msuchy@redhat.com> 29.1-1
+- add fedora 29 configs and change rawhide to F30
+- defattr is not needed since rpm 4.2
+- Replace armv5tl with aarch64 for Mageia Cauldron (ngompa13@gmail.com)
+- check gpg keys for rawhide
 
 * Wed May 02 2018 Miroslav Suchý <msuchy@redhat.com> 28.4-1
 - requires distribution-gpg-keys with opensuse keys
