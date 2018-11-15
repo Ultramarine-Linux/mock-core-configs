@@ -2,7 +2,7 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	29.2
+Version:	29.3
 Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
@@ -17,7 +17,7 @@ Source:		https://github.com/rpm-software-management/mock/releases/download/%{nam
 BuildArch:	noarch
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:	distribution-gpg-keys >= 1.22
+Requires:	distribution-gpg-keys >= 1.25
 
 Requires(pre):	shadow-utils
 Requires(post): coreutils
@@ -53,8 +53,9 @@ Config files which allow you to create chroots for:
 
 
 %install
-mkdir -p %{buildroot}%{_sysconfdir}/mock
+mkdir -p %{buildroot}%{_sysconfdir}/mock/eol
 cp -a etc/mock/*.cfg %{buildroot}%{_sysconfdir}/mock
+cp -a etc/mock/eol/*cfg %{buildroot}%{_sysconfdir}/mock/eol
 
 # generate files section with config - there is many of them
 echo "%defattr(0644, root, mock)" > %{name}.cfgs
@@ -116,9 +117,16 @@ fi
 %files -f %{name}.cfgs
 %license COPYING
 %dir  %{_sysconfdir}/mock
+%dir  %{_sysconfdir}/mock/eol
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Nov 15 2018 Miroslav Suchý <msuchy@redhat.com> 29.3-1
+- add rhelbeta-8-* configs
+- move EOLed configs to /etc/mock/eol directory
+- Add source repos to all fedora configs (sfowler@redhat.com)
+- add epel-7-ppc64.cfg
+
 * Thu Aug 16 2018 Miroslav Suchý <msuchy@redhat.com> 29.2-1
 - add gpg keys for release rawhide-1 (msuchy@redhat.com)
 
