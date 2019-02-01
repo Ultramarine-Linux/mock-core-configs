@@ -3,7 +3,7 @@
 
 Name:		mock-core-configs
 Version:	29.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -121,6 +121,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 29.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Fri Nov 16 2018 Miroslav Suchý <msuchy@redhat.com> 29.4-1
 - use correct gpg keys for rhelbeta-8
 - add virtual platform module
