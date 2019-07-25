@@ -3,7 +3,7 @@
 
 Name:		mock-core-configs
 Version:	30.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -121,6 +121,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 30.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Thu Jun 06 2019 Miroslav Suchý <msuchy@redhat.com> 30.4-1
 - Add 'fastestmirror=1' to Mageia mock configs (ngompa13@gmail.com)
 - bootstrap: disable sclo* repos for epel --installroot (praiskup@redhat.com)
