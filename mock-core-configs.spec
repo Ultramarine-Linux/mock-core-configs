@@ -2,8 +2,8 @@
 %global mockgid 135
 
 Name:		mock-core-configs
-Version:	30.4
-Release:	2%{?dist}
+Version:	30.5
+Release:	1%{?dist}
 Summary:	Mock core config files basic chroots
 
 License:	GPLv2+
@@ -19,8 +19,10 @@ BuildArch:	noarch
 # distribution-gpg-keys contains GPG keys used by mock configs
 Requires:	distribution-gpg-keys >= 1.29
 
-Requires(pre):	shadow-utils
 Requires(post): coreutils
+%if 0%{?fedora} > 29 || 0%{?rhel} > 8
+BuildRequires: systemd-rpm-macros
+%endif
 %if 0%{?fedora} || 0%{?mageia} || 0%{?rhel} > 7
 # to detect correct default.cfg
 Requires(post):	python3-dnf
@@ -30,6 +32,7 @@ Requires(post):	python3
 Requires(post):	sed
 %endif
 %if 0%{?rhel} && 0%{?rhel} <= 7
+Requires(pre): shadow-utils
 # to detect correct default.cfg
 Requires(post):	python
 Requires(post):	yum
@@ -53,6 +56,11 @@ Config files which allow you to create chroots for:
 
 
 %install
+mkdir -p %{buildroot}%{_sysusersdir}
+%if 0%{?fedora} > 29 || 0%{?rhel} > 8
+cp -a mock.conf %{buildroot}%{_sysusersdir}
+%endif
+
 mkdir -p %{buildroot}%{_sysconfdir}/mock/eol
 cp -a etc/mock/*.cfg %{buildroot}%{_sysconfdir}/mock
 cp -a etc/mock/eol/*cfg %{buildroot}%{_sysconfdir}/mock/eol
@@ -71,10 +79,15 @@ elif [ -d %{buildroot}%{_sysconfdir}/bash_completion.d ]; then
     echo %{_sysconfdir}/bash_completion.d/mock >> %{name}.cfgs
 fi
 
+
 %pre
+%if 0%{?fedora} > 29 || 0%{?rhel} > 8
+%sysusers_create_package mock mock.conf
+%else
 # check for existence of mock group, create it if not found
 getent group mock > /dev/null || groupadd -f -g %mockgid -r mock
 exit 0
+%endif
 
 %post
 if [ -s /etc/os-release ]; then
@@ -116,13 +129,25 @@ fi
 
 %files -f %{name}.cfgs
 %license COPYING
+%if 0%{?fedora} > 29 || 0%{?rhel} > 8
+%{_sysusersdir}/mock.conf
+%endif
 %dir  %{_sysconfdir}/mock
 %dir  %{_sysconfdir}/mock/eol
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 30.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+* Thu Aug 08 2019 Miroslav Suchý <msuchy@redhat.com> 30.5-1
+- disable updates-modulare repos for now
+- buildrequire systemd-srpm-macros to get _sysusersdir
+- removed info about metadata expire (khoidinhtrinh@gmail.com)
+- added updates-modular to 29 and 30 (khoidinhtrinh@gmail.com)
+- replace groupadd using sysusers.d
+- core-configs: epel-7 profiles to use mirrorlists (praiskup@redhat.com)
+- EOL Fedora 28
+- do not protect packages in chroot [GH#286]
+- Fix value for dist for OpenMandriva 4.0 configs (ngompa13@gmail.com)
+- Add initial OpenMandriva distribution targets (ngompa13@gmail.com)
 
 * Thu Jun 06 2019 Miroslav Suchý <msuchy@redhat.com> 30.4-1
 - Add 'fastestmirror=1' to Mageia mock configs (ngompa13@gmail.com)
