@@ -2,7 +2,7 @@
 %global mockgid 135
 
 Name:       mock-core-configs
-Version:    31.2
+Version:    31.3
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -56,8 +56,9 @@ Config files which allow you to create chroots for:
 mkdir -p %{buildroot}%{_sysusersdir}
 
 mkdir -p %{buildroot}%{_sysconfdir}/mock/eol
+mkdir -p %{buildroot}%{_sysconfdir}/mock/templates
 cp -a etc/mock/*.cfg %{buildroot}%{_sysconfdir}/mock
-cp -a etc/mock/*.tpl %{buildroot}%{_sysconfdir}/mock
+cp -a etc/mock/templates/*.tpl %{buildroot}%{_sysconfdir}/mock/templates
 cp -a etc/mock/eol/*cfg %{buildroot}%{_sysconfdir}/mock/eol
 
 # generate files section with config - there is many of them
@@ -122,9 +123,20 @@ fi
 %license COPYING
 %dir  %{_sysconfdir}/mock
 %dir  %{_sysconfdir}/mock/eol
+%dir  %{_sysconfdir}/mock/templates
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Sat Sep 14 2019 Miroslav Suchý <msuchy@redhat.com> 31.3-1
+- mock-core-configs: installroot fix for fedora 31+ i386 (praiskup@redhat.com)
+- Moving templates into templates dir (sisi.chlupova@gmail.com)
+- Changing cfg files for fedora 30 to use tpl file (sisi.chlupova@gmail.com)
+- Moving fedora-30-x86_64.cfg into templates/fedora-30.tpl
+  (sisi.chlupova@gmail.com)
+- baseurl for f30-build was changed (sisi.chlupova@gmail.com)
+- no i686 repositories [GH#325]
+- adds equation sign to --disablerepo (thrnciar@reedhat.com)
+
 * Mon Aug 26 2019 Miroslav Suchý <msuchy@redhat.com> 31.2-1
 - revert sysusers setting [RHBZ#1740545]
 - add rhelepel-8 configs (praiskup@redhat.com)
