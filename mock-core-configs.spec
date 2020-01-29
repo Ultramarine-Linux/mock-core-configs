@@ -3,7 +3,7 @@
 
 Name:       mock-core-configs
 Version:    31.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -127,6 +127,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 31.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Fri Nov 01 2019 Miroslav Suchý <msuchy@redhat.com> 31.7-1
 - Add configs for epel8-playground (mmathesi@redhat.com)
 - add 3 base packages to epel-playground buildroot [RHBZ#1764445]
