@@ -3,7 +3,7 @@
 
 Name:       mock-core-configs
 Version:    32.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -143,6 +143,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Mar 12 2020 Pavel Raiskup <praiskup@redhat.com> - 32.4-2
+- bump for https://koji.fedoraproject.org/koji/taskinfo?taskID=42402445 failure
+
 * Wed Mar 11 2020 Pavel Raiskup <praiskup@redhat.com> 32.4-1
 - disable package_state plugin for openmandriva 4.0/Cooker
 - Mageia 6 is EOL
