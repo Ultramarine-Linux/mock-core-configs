@@ -2,7 +2,7 @@
 %global mockgid 135
 
 Name:       mock-core-configs
-Version:    32.5
+Version:    32.6
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -11,13 +11,19 @@ URL:        https://github.com/rpm-software-management/mock/
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
 # cd mock/mock-core-configs
-# git reset --hard %{name}-%{version}
+# git reset --hard %%{name}-%%{version}
 # tito build --tgz
 Source:     https://github.com/rpm-software-management/mock/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.gz
 BuildArch:  noarch
 
+# The mock.rpm requires this.  Other packages may provide this if they tend to
+# replace the mock-core-configs.rpm functionality.
+Provides: mock-configs
+
 # distribution-gpg-keys contains GPG keys used by mock configs
 Requires:   distribution-gpg-keys >= 1.36
+# specify minimal compatible version of mock
+Requires:   mock >= 2.2
 
 Requires(post): coreutils
 %if 0%{?fedora} || 0%{?mageia} || 0%{?rhel} > 7
@@ -91,6 +97,10 @@ elif [ -d %{buildroot}%{_sysconfdir}/bash_completion.d ]; then
     echo %{_sysconfdir}/bash_completion.d/mock >> %{name}.cfgs
 fi
 
+# reference valid mock.rpm's docdir with example site-defaults.cfg
+mock_docs=%{_pkgdocdir}
+mock_docs=${mock_docs//mock-core-configs/mock}
+sed -i "s~@MOCK_DOCS@~$mock_docs~" %{buildroot}%{_sysconfdir}/mock/site-defaults.cfg
 
 %pre
 # check for existence of mock group, create it if not found
@@ -143,6 +153,15 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Wed Apr 01 2020 Pavel Raiskup <praiskup@redhat.com> 32.6-1
+- the site-defaults.cfg file moved from mock to mock-core-configs
+- new option config_opts['isolation'], obsoletes 'use_nspawn'
+- declare minimal version of mock, and set this to v2.2 as we use the new
+  'isolation' config option now, and we provide site-defaults.cfg file
+- specify amazonlinux bootstrap image, to fix --use-bootstrap-image
+- allow to replace mock-core-configs by packages that 'Provides: mock-configs'
+- rpmlint: remove macro in comment
+
 * Thu Mar 26 2020 Pavel Raiskup <praiskup@redhat.com> 32.5-1
 - Add Devel repo to CentOS 8 and CentOS Stream (ngompa13@gmail.com)
 - Add PowerTools sources repo entry to CentOS 8 and CentOS Stream
