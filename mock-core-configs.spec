@@ -3,7 +3,7 @@
 
 Name:       mock-core-configs
 Version:    32.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -153,6 +153,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 32.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Wed Apr 01 2020 Pavel Raiskup <praiskup@redhat.com> 32.6-1
 - the site-defaults.cfg file moved from mock to mock-core-configs
 - new option config_opts['isolation'], obsoletes 'use_nspawn'
