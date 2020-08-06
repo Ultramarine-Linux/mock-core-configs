@@ -2,8 +2,8 @@
 %global mockgid 135
 
 Name:       mock-core-configs
-Version:    32.6
-Release:    2%{?dist}
+Version:    32.7
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -21,7 +21,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.36
+Requires:   distribution-gpg-keys >= 1.41
 # specify minimal compatible version of mock
 Requires:   mock >= 2.2
 
@@ -100,6 +100,7 @@ fi
 # reference valid mock.rpm's docdir with example site-defaults.cfg
 mock_docs=%{_pkgdocdir}
 mock_docs=${mock_docs//mock-core-configs/mock}
+mock_docs=${mock_docs//-%version/-*}
 sed -i "s~@MOCK_DOCS@~$mock_docs~" %{buildroot}%{_sysconfdir}/mock/site-defaults.cfg
 
 %pre
@@ -153,8 +154,12 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 32.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+* Thu Aug 06 2020 Pavel Raiskup <praiskup@redhat.com> 32.7-1
+- add branched Fedora 33 configs
+- eol Fedora 30
+- tolerate a 1-minute baseurl outages in OpenSUSE configs
+- fix site-defaults.cfg reference to docs
+- change all openSUSE configs to use the download redirector (baseurl)
 
 * Wed Apr 01 2020 Pavel Raiskup <praiskup@redhat.com> 32.6-1
 - the site-defaults.cfg file moved from mock to mock-core-configs
