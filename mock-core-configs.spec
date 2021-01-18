@@ -1,5 +1,5 @@
 Name:       mock-core-configs
-Version:    33.4
+Version:    33.5
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -67,7 +67,7 @@ case $HOST in
     # RPM on EL7 doesn't link against libzstd, and newer Fedora is compressed
     # using ZSTD.  We need to enable bootstrap image here to be able to
     # initialize the Fedora bootstrap chroot.
-    for config in etc/fedora-*-*.cfg; do
+    for config in etc/mock/fedora-*-*.cfg; do
         version=$(echo "$config" | cut -d- -f2)
         if test $version = rawhide || test $version -ge 31; then
             echo "config_opts['use_bootstrap_image'] = True" >> "$config"
@@ -150,6 +150,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Jan 18 2021 Pavel Raiskup <praiskup@redhat.com> 33.5-1
+- fix typo in host-specific config generater
+
 * Mon Jan 18 2021 Pavel Raiskup <praiskup@redhat.com> 33.4-1
 - fix bootstrapping of newer Fedora on EL7
 - efine a bootstrap image for openSUSE Tumbleweed (ngompa13@gmail.com)
