@@ -1,6 +1,6 @@
 Name:       mock-core-configs
 Version:    33.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -150,6 +150,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 33.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
 * Mon Jan 18 2021 Pavel Raiskup <praiskup@redhat.com> 33.5-1
 - fix typo in host-specific config generater
 
