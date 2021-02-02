@@ -1,6 +1,6 @@
 Name:       mock-core-configs
-Version:    33.5
-Release:    2%{?dist}
+Version:    33.6
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -150,8 +150,10 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 33.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Tue Feb 02 2021 Pavel Raiskup <praiskup@redhat.com> 33.6-1
+- Add Mageia 8 stable release configs (ngompa13@gmail.com)
+- Update Mageia Cauldron configuration for Mageia 9 (ngompa13@gmail.com)
+- add RHEL 6 x86_64 configuration
 
 * Mon Jan 18 2021 Pavel Raiskup <praiskup@redhat.com> 33.5-1
 - fix typo in host-specific config generater
