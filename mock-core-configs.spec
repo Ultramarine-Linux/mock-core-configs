@@ -1,5 +1,5 @@
 Name:       mock-core-configs
-Version:    33.6
+Version:    34
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -18,7 +18,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.41
+Requires:   distribution-gpg-keys >= 1.48
 # specify minimal compatible version of mock
 Requires:   mock >= 2.5
 Requires:   mock-filesystem
@@ -150,6 +150,12 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Feb 08 2021 Pavel Raiskup <praiskup@redhat.com> 34-1
+- add fedora 34 configs (msuchy@redhat.com)
+- require distribution-gpg-keys with F35 keys (msuchy@redhat.com)
+- make F35 symlink to rawhide (msuchy@redhat.com)
+- Rename centos-stream centos-stream-8 (orion@nwra.com)
+
 * Tue Feb 02 2021 Pavel Raiskup <praiskup@redhat.com> 33.6-1
 - Add Mageia 8 stable release configs (ngompa13@gmail.com)
 - Update Mageia Cauldron configuration for Mageia 9 (ngompa13@gmail.com)
