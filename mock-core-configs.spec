@@ -1,5 +1,5 @@
 Name:       mock-core-configs
-Version:    34.4
+Version:    34.5
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -18,7 +18,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.54
+Requires:   distribution-gpg-keys >= 1.55
 # specify minimal compatible version of mock
 Requires:   mock >= 2.5
 Requires:   mock-filesystem
@@ -32,7 +32,6 @@ Requires(post): system-release
 Requires(post): python3
 Requires(post): sed
 %endif
-Requires(pre):  shadow-utils
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # to detect correct default.cfg
 Requires(post): python
@@ -150,6 +149,16 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Jul 19 2021 Pavel Raiskup <praiskup@redhat.com> 34.5-1
+- Add CentOS Stream 9 "preview" files
+- Add rocky support to mock (tucklesepk@gmail.com)
+- Add AlmaLinux 8 AArch64 target (ngompa13@gmail.com)
+- Add AlmaLinux Devel repo as an optional repo for AlmaLinux 8 (ngompa13@gmail.com)
+- Fix GPG key path for SLE updates in openSUSE Leap 15.3 (ngompa13@gmail.com)
+- Move Requires of shadow-utils from mock-core-configs to mock-filesystem (msuchy@redhat.com)
+- Switch CentOS templates to use quay.io images for bootstrap (carl@george.computer)
+- Add epel-next-8 configs (carl@george.computer)
+
 * Tue Jun 08 2021 Pavel Raiskup <praiskup@redhat.com> 34.4-1
 - Add GPG keys and RPM repositories for openSUSE Leap 15.3 (ngompa13@gmail.com)
 - EOL Fedora 32 (msuchy@redhat.com)
