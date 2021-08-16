@@ -1,6 +1,6 @@
 Name:       mock-core-configs
-Version:    34.6
-Release:    2%{?dist}
+Version:    35
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -149,8 +149,8 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 34.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+* Mon Aug 16 2021 Pavel Raiskup <praiskup@redhat.com> 35-1
+- config: add Fedora 35 configs
 
 * Mon Jul 19 2021 Pavel Raiskup <praiskup@redhat.com> 34.6-1
 - Disable Rocky Linux "Devel" repo by default (ngompa13@gmail.com)
