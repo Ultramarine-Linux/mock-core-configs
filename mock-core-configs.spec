@@ -1,6 +1,6 @@
 Name:       mock-core-configs
 Version:    36.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -13,6 +13,8 @@ URL:        https://github.com/rpm-software-management/mock/
 Source:     https://github.com/rpm-software-management/mock/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.gz
 Source1:    ultramarine-35-x86_64.cfg
 Source2:    ultramarine.tpl
+Source3:    ultramarine-testing.tpl
+Source4:    ultramarine-36-x86_64.cfg
 BuildArch:  noarch
 
 # The mock.rpm requires this.  Other packages may provide this if they tend to
