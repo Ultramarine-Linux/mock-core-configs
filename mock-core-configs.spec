@@ -48,6 +48,8 @@ Config files which allow you to create chroots for:
 
 cp -v %{SOURCE1} etc/mock
 cp -v %{SOURCE2} etc/mock/templates
+cp -v %{SOURCE3} etc/mock/templates
+cp -v %{SOURCE4} etc/mock/
 
 %build
 HOST=none
