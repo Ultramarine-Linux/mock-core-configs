@@ -1,5 +1,5 @@
 Name:       mock-core-configs
-Version:    36.4
+Version:    37.1
 Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -15,6 +15,7 @@ Source1:    ultramarine-35-x86_64.cfg
 Source2:    ultramarine.tpl
 Source3:    ultramarine-testing.tpl
 Source4:    ultramarine-36-x86_64.cfg
+Source5:    ultramarine-37-x86_64.cfg
 BuildArch:  noarch
 
 # The mock.rpm requires this.  Other packages may provide this if they tend to
@@ -50,6 +51,7 @@ cp -v %{SOURCE1} etc/mock
 cp -v %{SOURCE2} etc/mock/templates
 cp -v %{SOURCE3} etc/mock/templates
 cp -v %{SOURCE4} etc/mock/
+cp -v %{SOURCE5} etc/mock/
 
 %build
 HOST=none
