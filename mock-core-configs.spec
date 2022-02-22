@@ -1,3 +1,4 @@
+%undefine   _disable_source_fetch
 Name:       mock-core-configs
 Version:    37.1
 Release:    2%{?dist}
