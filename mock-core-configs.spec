@@ -1,7 +1,7 @@
 %undefine   _disable_source_fetch
 Name:       mock-core-configs
-Version:    37.1
-Release:    2%{?dist}
+Version:    37.2
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPLv2+
@@ -11,7 +11,7 @@ URL:        https://github.com/rpm-software-management/mock/
 # cd mock/mock-core-configs
 # git reset --hard %%{name}-%%{version}
 # tito build --tgz
-Source:     https://github.com/rpm-software-management/mock/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.gz
+Source:     https://github.com/rpm-software-management/mock/archive/refs/tags/mock-core-configs-%{version}-1.tar.gz
 Source1:    ultramarine-35-x86_64.cfg
 Source2:    ultramarine.tpl
 Source3:    ultramarine-testing.tpl
@@ -46,7 +46,7 @@ Config files which allow you to create chroots for:
  * OpenSuse Tumbleweed and Leap
 
 %prep
-%setup -q
+%setup -q -n mock-%{name}-%{version}-1/%{name}/
 
 cp -v %{SOURCE1} etc/mock
 cp -v %{SOURCE2} etc/mock/templates
