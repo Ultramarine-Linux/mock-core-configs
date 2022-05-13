@@ -30,7 +30,7 @@ protected_packages=
 user_agent={{ user_agent }}
 
 [ultramarine]
-name=Ultramarine Linux Testing
+name=ultramarine
 baseurl=https://lapis.ultramarine-linux.org/pub/ultramarine/testing/Everything/$basearch/os/
 type=rpm-md
 skip_if_unavailable=True
@@ -75,21 +75,21 @@ assumeyes=True
 {% if mirrored %}
 [fedora]
 name=fedora
-metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-rawhide&arch=$basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
 gpgcheck=1
 skip_if_unavailable=False
 exclude=fedora-release*
-assumeyes=True
+
 [updates]
-name=fedora-updates
+name=updates
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
 gpgcheck=1
 skip_if_unavailable=False
-assumeyes=True
+
 [updates-testing]
-name=fedora-updates-testing
+name=updates-testing
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-testing-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -97,7 +97,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [fedora-debuginfo]
-name=upstream-debuginfo
+name=fedora-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -105,7 +105,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [updates-debuginfo]
-name=fedora-updates-debuginfo
+name=updates-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -113,7 +113,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [updates-testing-debuginfo]
-name=fedora-updates-testing-debuginfo
+name=updates-testing-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-testing-debug-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary

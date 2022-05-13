@@ -30,12 +30,24 @@ protected_packages=
 user_agent={{ user_agent }}
 
 [ultramarine]
-name=Ultramarine Linux
+name=ultramarine
 baseurl=https://lapis.ultramarine-linux.org/pub/ultramarine/$releasever/Everything/$basearch/os/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=0
 gpgkey=https://lapis.ultramarine-linux.org/pub/ultramarine/$releasever/ultramarine.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+priority=50
+
+[ultramarine]
+name=ultramarine-updates
+baseurl=https://lapis.ultramarine-linux.org/pub/ultramarine-updates/$releasever/Everything/$basearch/os/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=0
+#gpgkey=https://lapis.ultramarine-linux.org/pub/ultramarine/$releasever/ultramarine.gpg
 repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
@@ -47,28 +59,6 @@ name=RPM Fusion for Fedora $releasever - Free
 metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
 enabled=1
 metadata_expire=14d
-type=rpm-md
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
-
-[rpmfusion-free-updates]
-name=RPM Fusion for Fedora $releasever - Free - Updates
-#baseurl=http://download1.rpmfusion.org/free/fedora/updates/$releasever/$basearch/
-metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
-enabled=1
-enabled_metadata=1
-type=rpm-md
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
-
-[rpmfusion-free-tainted]
-name=RPM Fusion for Fedora $releasever - Free tainted
-#baseurl=http://download1.rpmfusion.org/free/fedora/tainted/$releasever/$basearch/
-metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-tainted-$releasever&arch=$basearch
-enabled=1
-metadata_expire=6h
 type=rpm-md
 gpgcheck=1
 repo_gpgcheck=0
@@ -86,27 +76,6 @@ gpgcheck=1
 repo_gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
 
-[rpmfusion-nonfree-updates]
-name=RPM Fusion for Fedora $releasever - Nonfree - Updates
-#baseurl=http://download1.rpmfusion.org/nonfree/fedora/updates/$releasever/$basearch/
-metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-updates-released-$releasever&arch=$basearch
-enabled=1
-enabled_metadata=1
-type=rpm-md
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
-
-[rpmfusion-nonfree-tainted]
-name=RPM Fusion for Fedora $releasever - Nonfree tainted
-#baseurl=http://download1.rpmfusion.org/nonfree/fedora/tainted/$releasever/$basearch/
-metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-tainted-$releasever&arch=$basearch
-enabled=1
-metadata_expire=14d
-type=rpm-md
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
 
 [local]
 name=local
@@ -118,22 +87,22 @@ assumeyes=True
 
 {% if mirrored %}
 [fedora]
-name=upstream
+name=fedora
 metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
 gpgcheck=1
 skip_if_unavailable=False
 exclude=fedora-release*
-assumeyes=True
+
 [updates]
-name=fedora-updates
+name=updates
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
 gpgcheck=1
 skip_if_unavailable=False
-assumeyes=True
+
 [updates-testing]
-name=fedora-updates-testing
+name=updates-testing
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-testing-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -141,7 +110,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [fedora-debuginfo]
-name=upstream-debuginfo
+name=fedora-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -149,7 +118,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [updates-debuginfo]
-name=fedora-updates-debuginfo
+name=updates-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
@@ -157,7 +126,7 @@ gpgcheck=1
 skip_if_unavailable=False
 
 [updates-testing-debuginfo]
-name=fedora-updates-testing-debuginfo
+name=updates-testing-debuginfo
 metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-testing-debug-f$releasever&arch=$basearch
 enabled=0
 gpgkey=file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-{{ releasever }}-primary
