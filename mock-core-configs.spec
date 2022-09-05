@@ -1,6 +1,6 @@
 %undefine   _disable_source_fetch
 Name:       mock-core-configs
-Version:    37.5
+Version:    37.7
 Release:    %autorelease
 Summary:    Mock core config files basic chroots
 
@@ -516,5 +516,31 @@ fi
 
 * Thu Sep 07 2017 Miroslav Suchý <msuchy@redhat.com> 27.1-1
 - Split from Mock package.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
