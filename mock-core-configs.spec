@@ -1,7 +1,7 @@
 %undefine   _disable_source_fetch
 Name:       mock-core-configs
 Version:    37.7
-Release:    %autorelease
+Release:    2
 Summary:    Mock core config files basic chroots
 Epoch:      1
 License:    GPLv2+
