@@ -3,7 +3,7 @@ Name:       mock-core-configs
 Version:    37.7
 Release:    %autorelease
 Summary:    Mock core config files basic chroots
-
+Epoch:      1
 License:    GPLv2+
 URL:        https://github.com/rpm-software-management/mock/
 # Source is created by
