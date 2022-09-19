@@ -41,7 +41,7 @@ enabled=1
 enabled_metadata=1
 priority=50
 
-[ultramarine]
+[ultramarine-updates]
 name=ultramarine-updates
 baseurl=https://lapis.ultramarine-linux.org/pub/ultramarine-updates/$releasever/Everything/$basearch/os/
 type=rpm-md
